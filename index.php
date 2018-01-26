@@ -1,4 +1,26 @@
 <!DOCTYPE html>
+<?php 
+require "config.php";
+function get_client_ip() {
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if(getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if(getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if(getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if(getenv('HTTP_FORWARDED'))
+       $ipaddress = getenv('HTTP_FORWARDED');
+    else if(getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -28,8 +50,11 @@
 			  			<div class="status-bar" style="width: 700px;">
 			  				<a href="#" class="active alert">Tạo bài viết <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 			  			</div>
-			  			<textarea style="min-height: 150px;height: 100%" placeholder="Hỏi tôi thứ gì đó tại đây nhé :)" class="form-control" id="feed" name="feed"></textarea>
-			  			<button type="button" class="btn btn-primary" style="width: 100px">Gửi      <i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+			  			<form method="POST">
+			  				<textarea style="min-height: 150px;height: 100%" placeholder="Hỏi tôi thứ gì đó tại đây nhé :)" class="form-control" id="feed" name="msg"></textarea>
+			  				<button type="submit" class="btn btn-primary" style="width: 100px">Gửi      <i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+			  			</form>
+			  			
 			  		</div> <!-- Het Block -->
 
 			  		<div class="alert alert-primary" role="alert" style="width: 700px;margin-top:20px;">
@@ -117,3 +142,24 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+	require "config.php";
+	$ip = get_client_ip();
+	$msg = $_POST['msg'];
+	date_default_timezone_set("Asia/Ho_Chi_Minh");
+	$time = date("Y-m-d h:i:sa");
+	$conn = mysql_connect($host, $db_user, $db_pass);
+	mysql_select_db('c9',$conn);
+	$query = "INSERT INTO `tbl_mess` (`id` ,`ip` ,`mess`,`date`)
+	VALUES (NULL ,  '{$ip}',  '{$msg}',  '{$time}');";
+	
+	if ($conn) {
+		$qr = mysql_query($query,$conn);
+		if ($qr){
+			echo "Thành Công";
+		}else echo "Thất bại";
+		
+	}
+	mysql_close($conn);
+?>
