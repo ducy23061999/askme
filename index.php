@@ -3,8 +3,117 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ask Me Plz &gl3 </title>
+	<link rel="stylesheet" href="css/card.css">
+	<link rel="stylesheet" href="css/theme.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
 </head>
 <body>
-	
+		<div class="footer">
+			<div class="float-left">
+				<a href="#"><i>PLZ ASK ME<i></a>
+				<i class="fa fa-gratipay" aria-hidden="true" style="font-size: 30px;padding-top: 5px;color: #ffffffba"></i>
+			</div>
+			<div class="float-right">
+				<a href=""><i class="fa fa-facebook cus-icon" aria-hidden="true"></i></a>
+				<a href=""><i class="fa fa-google-plus-official cus-icon" aria-hidden="true"></i></a>
+			</div>
+		</div><!--  Het footer -->
+		<div class="container">
+			<div class="row" style="padding-top: 30px;">
+				<div class="col-md-8"">
+			  		<div class="block" style="width: 700px;min-height: 50px;">
+			  			<div class="status-bar" style="width: 700px;">
+			  				<a href="#" class="active alert">Tạo bài viết <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+			  			</div>
+			  			<textarea style="min-height: 150px;height: 100%" placeholder="Hỏi tôi thứ gì đó tại đây nhé :)" class="form-control" id="feed" name="feed"></textarea>
+			  			<button type="button" class="btn btn-primary" style="width: 100px">Gửi      <i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+			  		</div> <!-- Het Block -->
+
+			  		<div class="alert alert-primary" role="alert" style="width: 700px;margin-top:20px;">
+			  		  Quote: Mọi thứ đều bớt quan trong khi bạn mắc ỉa
+			  		</div> <!-- Het Alert -->
+				</div> <!-- Trai -->
+
+				<div class="col-md-4">
+					<div class="card-info">
+						<div style="width: 300px; height: 300px";>
+							<div class="back-gr">
+								<img src="https://scontent.fdad3-2.fna.fbcdn.net/v/t1.0-9/26814835_912303345609818_223053395155927822_n.jpg?oh=5312f8558e280ae8e7557f320fffbda3&oe=5AF1A243" class="rounded-circle">
+								<p style="text-align: center; padding-top: 90px; color: white">Trần Đức Ý</p>
+							</div>
+							<div class='card-wrapper'>
+							  <div class='card' data-toggle-class='flipped'>
+							    <div class='card-front'>
+							      <div class='layer'>
+							        <h1>Click Me</h1>
+							        <div class='corner'></div>
+							        <div class='corner'></div>
+							        <div class='corner'></div>
+							        <div class='corner'></div>
+							      </div>
+							    </div>
+							    <div class='card-back'>
+							      <div class='layer'>
+							        <div class='top'>
+							          <h2>My Info</h2>
+							        </div>
+							        <div class='bottom'>
+							          <h3>
+							            Sở thích: Code,Nghe nhạc
+							          </h3>
+							          <h3>
+							            Sở đoản: Hay quên, hay mất tập trung
+							          </h3>
+							          <h3>
+							            Nơi ở: Huế
+							          </h3>
+							          <h3>
+							            Đẹp trai : True
+							          </h3>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div><!--  Het col 4 -->
+			</div><!--  Het row 1-->
+			<div class="row">
+				<div class="col-md-8">
+					<div class="content">
+						<p>(Date And Time)</p>
+						<div class="title">
+							<img src="http://via.placeholder.com/60x60" class="rounded-circle" style="width: 60px;height: 60px;">
+							   <h7>Anonymous</h7> 
+						</div>
+
+						<div class="text-body">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam sapiente commodi, ad deserunt temporibus nisi debitis quos repellat.
+						</div>
+						<div class="reply">
+							<img src="https://scontent.fdad3-2.fna.fbcdn.net/v/t1.0-9/26814835_912303345609818_223053395155927822_n.jpg?oh=5312f8558e280ae8e7557f320fffbda3&oe=5AF1A243" class="rounded-circle" class="rounded-circle" style="width: 40px;height: 40px;">
+							   <h7>Trần Đức Ý></h7>
+							   Ok mình công nhận bạn đẹp trai 
+						</div>
+					</div> <!-- Het content -->
+				</div> <!-- Het col 2 -->
+			</div><!-- Het row 2 -->
+		
+		<div class="row">
+			<div class="col-md-8">
+				<div class="status-bar" style="width: 700px;">
+					Fage: <a href="#">1</a> | <a href="#">2</a> | <a href="#">3</a>  | <a href="#">4</a>
+				</div>
+			</div>
+		</div>
+	</div> <!-- Het container -->
+	<script src="js/card.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
