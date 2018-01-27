@@ -18,7 +18,25 @@ function get_client_ip() {
     else
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
-}
+};
+
+	$conn = mysql_connect($host, $db_user, $db_pass);
+	mysql_select_db($db_name,$conn);
+	$qr_total = "SELECT count(id) as total from tbl_mess";
+	$sum = mysql_query($qr_total,$conn);
+	$cout = mysql_fetch_assoc($sum);
+	$total_record =  (int)$cout['total'];
+	$limit = 10;
+	$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$total_fage = ceil($total_record/$limit);
+	
+	if ($current_page > $total_fage) $current_page = $total_fage;
+		else if ($current_page<1) $current_page = 1;
+	$start = ($current_page - 1)*$limit;
+	
+	$result = mysql_query("SELECT * FROM tbl_mess ORDER BY id DESC LIMIT $start, $limit",$conn);
+	
+	mysql_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +84,7 @@ function get_client_ip() {
 					<div class="card-info">
 						<div style="width: 300px; height: 300px";>
 							<div class="back-gr">
-								<img src="https://scontent.fdad3-2.fna.fbcdn.net/v/t1.0-9/26814835_912303345609818_223053395155927822_n.jpg?oh=5312f8558e280ae8e7557f320fffbda3&oe=5AF1A243" class="rounded-circle">
+								<img src="<?php echo $image_url;?>" class="rounded-circle">
 								<p style="text-align: center; padding-top: 90px; color: white">Trần Đức Ý</p>
 							</div>
 							<div class='card-wrapper'>
@@ -87,7 +105,7 @@ function get_client_ip() {
 							        </div>
 							        <div class='bottom'>
 							          <h3>
-							            Sở thích: Code,Nghe nhạc
+							            Sở thích: Code,Nghe nhạc 
 							          </h3>
 							          <h3>
 							            Sở đoản: Hay quên, hay mất tập trung
@@ -110,28 +128,55 @@ function get_client_ip() {
 			<div class="row">
 				<div class="col-md-8">
 					<div class="content">
-						<p>(Date And Time)</p>
-						<div class="title">
-							<img src="http://via.placeholder.com/60x60" class="rounded-circle" style="width: 60px;height: 60px;">
+					<?php 
+					while($row = mysql_fetch_assoc($result) )
+						echo "<p>".$row['date']."</p>
+						<div class='title'>
+							<img src='http://via.placeholder.com/60x60' class='rounded-circle' style='width: 60px;height: 60px;'>
 							   <h7>Anonymous</h7> 
 						</div>
 
-						<div class="text-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam sapiente commodi, ad deserunt temporibus nisi debitis quos repellat.
-						</div>
-						<div class="reply">
-							<img src="https://scontent.fdad3-2.fna.fbcdn.net/v/t1.0-9/26814835_912303345609818_223053395155927822_n.jpg?oh=5312f8558e280ae8e7557f320fffbda3&oe=5AF1A243" class="rounded-circle" class="rounded-circle" style="width: 40px;height: 40px;">
+						<div class='text-body'>".
+							$row['mess']
+						."</div>
+						<div class='reply'>
+							<img src='".$image_url."' class='rounded-circle' class='rounded-circle' style='width: 40px;height: 40px;'>
 							   <h7>Trần Đức Ý></h7>
 							   Ok mình công nhận bạn đẹp trai 
-						</div>
+						</div>";
+					
+					
+					
+					
+					?>
 					</div> <!-- Het content -->
+				
+					
 				</div> <!-- Het col 2 -->
 			</div><!-- Het row 2 -->
 		
 		<div class="row">
 			<div class="col-md-8">
 				<div class="status-bar" style="width: 700px;">
-					Fage: <a href="#">1</a> | <a href="#">2</a> | <a href="#">3</a>  | <a href="#">4</a>
+				<?php 
+					if ($current_page > 1 && $total_fage > 1){
+    					echo '<a href="index.php?page='.($current_page-1).'">Prev</a> | ';
+					}
+ 
+					for ($i = 1; $i <= $total_fage; $i++){
+    					if ($i == $current_page){
+    						echo '<span>'.$i.'</span> | ';
+					 }
+						else{
+    					 echo '<a href="index.php?page='.$i.'">'.$i.'</a> | ';
+						}
+					}
+ 
+					if ($current_page < $total_fage && $total_fage > 1){
+    					echo '<a href="index.php?page='.($current_page+1).'">Next</a> | ';
+					}
+					
+				?>
 				</div>
 			</div>
 		</div>
@@ -151,15 +196,18 @@ function get_client_ip() {
 	$time = date("Y-m-d h:i:sa");
 	$conn = mysql_connect($host, $db_user, $db_pass);
 	mysql_select_db('c9',$conn);
-	$query = "INSERT INTO `tbl_mess` (`id` ,`ip` ,`mess`,`date`)
-	VALUES (NULL ,  '{$ip}',  '{$msg}',  '{$time}');";
+	if (isset($msg)){
+		$query = "INSERT INTO `tbl_mess` (`id` ,`ip` ,`mess`,`date`)
+		VALUES (NULL ,  '{$ip}',  '{$msg}',  '{$time}');";
 	
-	if ($conn) {
-		$qr = mysql_query($query,$conn);
-		if ($qr){
-			echo "Thành Công";
-		}else echo "Thất bại";
-		
+		if ($conn) {
+			$qr = mysql_query($query,$conn);
+			if ($qr){
+				echo "Thành Công"."<br>";
+			}else echo "Thất bại";
+		} 
+	
+		mysql_close($conn);
 	}
-	mysql_close($conn);
+	
 ?>
