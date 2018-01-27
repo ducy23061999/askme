@@ -1,24 +1,7 @@
 <!DOCTYPE html>
 <?php 
 require "config.php";
-function get_client_ip() {
-    $ipaddress = '';
-    if (getenv('HTTP_CLIENT_IP'))
-        $ipaddress = getenv('HTTP_CLIENT_IP');
-    else if(getenv('HTTP_X_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-    else if(getenv('HTTP_X_FORWARDED'))
-        $ipaddress = getenv('HTTP_X_FORWARDED');
-    else if(getenv('HTTP_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_FORWARDED_FOR');
-    else if(getenv('HTTP_FORWARDED'))
-       $ipaddress = getenv('HTTP_FORWARDED');
-    else if(getenv('REMOTE_ADDR'))
-        $ipaddress = getenv('REMOTE_ADDR');
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-};
+require "getip.php";
 
 	$conn = mysql_connect($host, $db_user, $db_pass);
 	mysql_select_db($db_name,$conn);
@@ -189,7 +172,6 @@ function get_client_ip() {
 </html>
 
 <?php
-	require "config.php";
 	$ip = get_client_ip();
 	$msg = $_POST['msg'];
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
@@ -202,9 +184,6 @@ function get_client_ip() {
 	
 		if ($conn) {
 			$qr = mysql_query($query,$conn);
-			if ($qr){
-				echo "Thành Công"."<br>";
-			}else echo "Thất bại";
 		} 
 	
 		mysql_close($conn);
