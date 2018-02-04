@@ -1,7 +1,25 @@
+<meta charset = "utf8" />
+<?php
+session_start();
+require_once "../config.php";
+if (isset($_SESSION['user']) && isset($_SESSION['pass'])){
+    if ($_SESSION['user'] == $admin_username && $_SESSION['pass'] == $admin_pass){
+    }else {
+        $_SESSION['mess'] = "Bạn nhập sai user hoặc password cmnr";
+        header("location: login.php");
+        die();
+    }
+    
+}else
+{
+    $_SESSION['mess'] = "Bạn chưa nhập tên đăng nhập hoặc mật khẩu";
+    header("location: login.php");
+    die();
+    
+}
+?>
 <!DOCTYPE html>
 <?php 
-require "config.php";
-require "getip.php";
 
 	$conn = mysql_connect($host, $db_user, $db_pass);
 	mysql_select_db($db_name,$conn);
@@ -40,6 +58,7 @@ require "getip.php";
 				<i class="fa fa-gratipay" aria-hidden="true" style="font-size: 30px;padding-top: 5px;color: #ffffffba"></i>
 			</div>
 			<div class="float-right">
+			    <a href="logout.php">Log Out</a>
 				<a href=""><i class="fa fa-facebook cus-icon" aria-hidden="true"></i></a>
 				<a href=""><i class="fa fa-google-plus-official cus-icon" aria-hidden="true"></i></a>
 			</div>
@@ -47,16 +66,6 @@ require "getip.php";
 		<div class="container">
 			<div class="row" style="padding-top: 30px;">
 				<div class="col-md-8"">
-			  		<div class="block" style="width: 700px;min-height: 50px;">
-			  			<div class="status-bar" style="width: 700px;">
-			  				<a href="#" class="active alert">Tạo bài viết <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-			  			</div>
-			  			<form method="POST">
-			  				<textarea style="min-height: 150px;height: 100%" placeholder="Hỏi tôi thứ gì đó tại đây nhé :)" class="form-control" id="feed" name="msg"></textarea>
-			  				<button type="submit" class="btn btn-primary" style="width: 100px">Gửi      <i class="fa fa-share-square-o" aria-hidden="true"></i></button>
-			  			</form>
-			  			
-			  		</div> <!-- Het Block -->
 
 			  		<div class="alert alert-primary" role="alert" style="width: 700px;margin-top:20px;">
 			  		  Quote: Mọi thứ đều bớt quan trong khi bạn mắc ỉa
@@ -112,24 +121,45 @@ require "getip.php";
 				<div class="col-md-8">
 					<div class="content">
 					<?php 
-					
+
 					while($row = mysql_fetch_assoc($result) )
 					{
-						if ($row['rep'] != NULL) $rep_cmt = $row['rep']; else $rep_cmt = "(Chưa trả lời)";
-						echo "<p>".$row['date']."</p>
-						<div class='title'>
-							<img src='http://via.placeholder.com/60x60' class='rounded-circle' style='width: 60px;height: 60px;'>
-							   <h7>Anonymous</h7> 
-						</div>
+						if ($row['rep'] != NULL)
+							echo 
+							"<p>".$row['date']."</p>
+							<div class='title'>
+								<img src='http://via.placeholder.com/60x60' class='rounded-circle' style='width: 60px;height: 60px;'>
+							   	<h7>Anonymous</h7> 
+							</div>
 
-						<div class='text-body'>".
-							$row['mess']
-						."</div>
-						<div class='reply'>
-							<img src='".$image_url."' class='rounded-circle' class='rounded-circle' style='width: 40px;height: 40px;'>
+							<div class='text-body'>".
+								$row['mess']
+							."</div>"
+							. "<div class='reply'>".
+							"<img src='".$image_url."' class='rounded-circle' class='rounded-circle' style='width: 40px;height: 40px;'>
 							   <h7>Trần Đức Ý></h7>
-							   ".$rep_cmt."
-						</div>";
+							   ".$row['rep'].
+							"</div>";
+							else {
+								echo 
+								"<p>".$row['date']."</p>
+								<div class='title'>
+									<img src='http://via.placeholder.com/60x60' class='rounded-circle' style='width: 60px;height: 60px;'>
+							   		<h7>Anonymous</h7> 
+							   	</div>
+							   	<div class='text-body'>".
+									$row['mess']
+							    ."</div>".
+								"<div class='reply'>
+							   		<form method='POST' class='resert'>
+							       		<textarea style='height: 70px' placeholder='Nhập câu trả lời' class='form-control' name='rep'></textarea>
+							       		<input type='hidden' name='id_post' value='".$row['id']."'/>
+							       		<button type='submit' class='btn btn-success'>Gửi</button>
+							   
+							   		</form>
+							    	
+								</div>";
+							}
 					}
 					?>
 					</div> <!-- Het content -->
@@ -163,6 +193,9 @@ require "getip.php";
 				</div>
 			</div>
 		</div>
+		<script>
+			
+		</script>
 	</div> <!-- Het container -->
 	<script src="js/card.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -172,21 +205,14 @@ require "getip.php";
 </html>
 
 <?php
-if (isset($_POST['msg']))
-{
-	$ip = get_client_ip();
-	$msg = htmlentities($_POST['msg'], ENT_QUOTES, "UTF-8");
-	date_default_timezone_set("Asia/Ho_Chi_Minh");
-	$time = date("Y-m-d h:i:sa");
-	$conn = mysql_connect($host, $db_user, $db_pass);
-	mysql_select_db($db_name,$conn);
-	if (isset($msg)){
-		$query = "INSERT INTO `tbl_mess` (`id` ,`ip` ,`mess`,`date`)
-		VALUES (NULL ,  '{$ip}',  '{$msg}',  '{$time}');";
-		if ($conn) {
-			$qr = mysql_query($query,$conn);
-			unset($_POST['msg']);
-			echo "<script type='text/javascript'>
+	if(isset($_POST['rep']) && isset($_POST['id_post'])){
+		$reply = htmlentities($_POST['rep'], ENT_QUOTES, "UTF-8");
+		$id_int = (int)$_POST['id_post'];
+	    $conn = mysql_connect($host,$db_user,$db_pass);
+	    mysql_select_db($db_name);
+	    $query_insert = "UPDATE tbl_mess SET rep =  '{$reply}' WHERE id ={$id_int}";
+	    $status = mysql_query($query_insert,$conn);
+	    if ($status) echo "<script type='text/javascript'>
 					// Load one times
 					(function()
 					{
@@ -203,8 +229,7 @@ if (isset($_POST['msg']))
 					})();
 					
 				</script>";
-		} ;
-		mysql_close($conn);
+	    	else echo "<script>alert('Thất cmn Bại)</script>";
+	    mysql_close();
 	}
-}	
-?>
+?>    

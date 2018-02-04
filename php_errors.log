@@ -1,0 +1,26 @@
+[28-Jan-2018 02:27:00 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/ubuntu/workspace/askme/admin/login.php on line 33
+[28-Jan-2018 02:37:51 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/askme/admin/index.php on line 2
+[28-Jan-2018 02:37:51 UTC] PHP Stack trace:
+[28-Jan-2018 02:37:51 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/index.php:0
+[28-Jan-2018 02:37:51 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/askme/admin/index.php on line 2
+[28-Jan-2018 02:37:51 UTC] PHP Stack trace:
+[28-Jan-2018 02:37:51 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/index.php:0
+[28-Jan-2018 02:59:01 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/ubuntu/workspace/askme/admin/login.php on line 22
+[28-Jan-2018 03:04:52 UTC] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/askme/admin/index.php on line 24
+[28-Jan-2018 03:04:52 UTC] PHP Stack trace:
+[28-Jan-2018 03:04:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/index.php:0
+[28-Jan-2018 03:04:52 UTC] PHP Fatal error:  require(): Failed opening required 'config.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/askme/admin/index.php on line 24
+[28-Jan-2018 03:04:52 UTC] PHP Stack trace:
+[28-Jan-2018 03:04:52 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/index.php:0
+[28-Jan-2018 05:46:39 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/ubuntu/workspace/askme/admin/logout.php on line 2
+[28-Jan-2018 05:46:39 UTC] PHP Stack trace:
+[28-Jan-2018 05:46:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/logout.php:0
+[28-Jan-2018 05:46:39 UTC] PHP   2. session_destroy() /home/ubuntu/workspace/askme/admin/logout.php:2
+[28-Jan-2018 05:51:46 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/ubuntu/workspace/askme/admin/logout.php on line 2
+[28-Jan-2018 05:51:46 UTC] PHP Stack trace:
+[28-Jan-2018 05:51:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/logout.php:0
+[28-Jan-2018 05:51:46 UTC] PHP   2. session_destroy() /home/ubuntu/workspace/askme/admin/logout.php:2
+[04-Feb-2018 11:34:31 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/ubuntu/workspace/askme/admin/logout.php on line 2
+[04-Feb-2018 11:34:31 UTC] PHP Stack trace:
+[04-Feb-2018 11:34:31 UTC] PHP   1. {main}() /home/ubuntu/workspace/askme/admin/logout.php:0
+[04-Feb-2018 11:34:31 UTC] PHP   2. session_destroy() /home/ubuntu/workspace/askme/admin/logout.php:2
