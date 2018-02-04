@@ -3,9 +3,8 @@
 session_start();
 require_once "../config.php";
 if (isset($_SESSION['user']) && isset($_SESSION['pass'])){
-    if ($_SESSION['user'] == $admin_username && $_SESSION['pass'] == $admin_pass){
-    }else {
-        $_SESSION['mess'] = "Bạn nhập sai user hoặc password cmnr";
+    if ($_SESSION['user'] != $admin_username && $_SESSION['pass'] != $admin_pass){
+    	$_SESSION['mess'] = "Bạn nhập sai user hoặc password cmnr";
         header("location: login.php");
         die();
     }
